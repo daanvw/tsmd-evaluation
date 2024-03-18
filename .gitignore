@@ -1,0 +1,5 @@
+*.nbc
+*.nbi
+*.pyc
+
+*.egg-info

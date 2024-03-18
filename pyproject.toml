@@ -1,0 +1,28 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ['tsmd_evaluation']
+
+[project]
+name = "tsmd_evaluation"
+version = "1.0"
+description = "evaluating time series motif discovery"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["time series", "motif discovery", "evaluation"]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "pandas",
+    "tqdm",
+    "matplotlib",
+    "scipy",
+    "scikit-learn",
+    "tabulate",
+]
