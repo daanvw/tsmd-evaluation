@@ -7,9 +7,14 @@ import sklearn.metrics as skmetrics
 # _SUPPORTED_METRICS = ["F1", "Score"]
 
 def evaluate(gt, discovered_sets):
-    mm = match_matrix(discovered_sets, gt)
+    mm, _, _ = match_matrix(gt, discovered_sets)
     return f1_score(mm)
-    
+
+
+def evaluate_all_metrics(gt, discovered_sets):
+    mm, _, _ = match_matrix(gt, discovered_sets)
+    return precision(mm), recall(mm), f1_score(mm)
+
 
 def overlap_union_ratio(s, e, s_gt, e_gt):
     return max(0, (min(e, e_gt) - max(s, s_gt)) / (max(e, e_gt) - min(s, s_gt)))
@@ -32,7 +37,7 @@ def match_matrix(gt, discovered_sets, threshold=0.5):
         # only return missed discovery column
         match_matrix = np.zeros((n + 1, 1), dtype=int)
         match_matrix[:-1, 0] = [len(gt_set) for gt_set in gt_sets]
-        match_matrix[-1, 0]  = np.nan
+        # match_matrix[-1, 0]  = np.nan
         return match_matrix, row_names, []
     
     # inner match matrix
