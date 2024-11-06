@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 
 def generate_tsmd_ts(df, kappa):
+    df = df.reset_index(drop=True)
+    
     freqs   = df['label'].value_counts()
+    
     classes = freqs.index
     classes = classes[freqs > 1]  
     # Pick the repeating classes randomly
@@ -46,7 +49,7 @@ def generate_tsmd_ts(df, kappa):
     gt[label].append((curr, curr+l))    
     return np.vstack(ts), gt
 
-def generate_tsmd_benchmark(df, nb_series, kappa_max):    
+def generate_tsmd_benchmark(df, nb_series, kappa_min, kappa_max):    
 
     # Generate time series
     tss = []
@@ -54,7 +57,7 @@ def generate_tsmd_benchmark(df, nb_series, kappa_max):
     for _ in range(nb_series):
         
         # Sample a number of motif sets
-        kappa = np.random.randint(2, kappa_max+1)
+        kappa = np.random.randint(kappa_min, kappa_max+1)
     
         ts, gt = generate_tsmd_ts(df, kappa)
         tss.append(ts)
