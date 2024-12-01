@@ -8,12 +8,12 @@ import sklearn.metrics as skmetrics
 
 def evaluate(gt, discovered_sets):
     mm, _, _ = match_matrix(gt, discovered_sets)
-    return f1_score(mm)
+    return micro_averaged_f1(mm)
 
 
-def evaluate_all_metrics(gt, discovered_sets):
+def evaluate_all_metrics(gt, discovered_sets, penalize_additional=False):
     mm, _, _ = match_matrix(gt, discovered_sets)
-    return precision(mm), recall(mm), f1_score(mm)
+    return micro_averaged_precision(mm, penalize_additional=penalize_additional), micro_averaged_recall(mm), micro_averaged_f1(mm, penalize_additional=penalize_additional)
 
 
 ## MATCH MATRIX
